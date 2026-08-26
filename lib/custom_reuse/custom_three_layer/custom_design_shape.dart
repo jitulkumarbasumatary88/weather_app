@@ -15,8 +15,8 @@ class CustomDesignShape extends ConsumerWidget {
         final baseColor = WeatherBasisIconOrColor.getColor(condition);
 
         return Positioned(
-          top: 55,
-          right: 55,
+          top: 50,
+          right: 45,
           child: Icon(
             WeatherBasisIconOrColor.getIcon(condition),
             color: baseColor.withValues(alpha: 0.1),
