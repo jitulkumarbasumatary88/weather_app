@@ -25,63 +25,106 @@ class SunRiseOrSetWeather extends ConsumerWidget {
           ),
         );
 
-        return CustomBlurGlassEffect(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              //////////////////// Main Heading ////////////////////
+              child: const Text(
+                'Sunrise & Sunset',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 8),
+
+            CustomBlurGlassEffect(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Icon(
-                    Icons.wb_sunny_rounded,
-                    color: Colors.amber,
-                    size: 28,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      //////////////////// Icon ////////////////////
+                      const Icon(
+                        Icons.wb_sunny_rounded,
+                        color: Colors.amber,
+                        size: 26,
+                      ),
+
+                      const SizedBox(height: 6),
+
+                      //////////////////// Sun Rise ////////////////////
+                      const Text(
+                        'Sunrise',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+
+                      const SizedBox(height: 4),
+
+                      //////////////////// Sun Rise Time ////////////////////
+                      Text(
+                        sunriseTime,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
                   ),
 
-                  const SizedBox(height: 4),
+                  //////////////////// Vertical Line ////////////////////
+                  Container(width: 1, height: 40, color: Colors.white10),
 
-                  const Text(
-                    'Sunrise',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      //////////////////// Icon ////////////////////
+                      const Icon(
+                        Icons.nights_stay_rounded,
+                        color: Colors.deepOrangeAccent,
+                        size: 26,
+                      ),
 
-                  Text(
-                    sunriseTime,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                      const SizedBox(height: 6),
+
+                      //////////////////// Sun Set ////////////////////
+                      const Text(
+                        'Sunset',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+
+                      const SizedBox(height: 4),
+
+                      //////////////////// Sun Set Time ////////////////////
+                      Text(
+                        sunsetTime,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-
-              Container(width: 1, height: 40, color: Colors.white24),
-
-              Column(
-                children: [
-                  const Icon(
-                    Icons.nights_stay_rounded,
-                    color: Colors.deepOrangeAccent,
-                    size: 28,
-                  ),
-
-                  const SizedBox(height: 4),
-
-                  const Text(
-                    'Sunset',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  ),
-
-                  Text(
-                    sunsetTime,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+          ],
         );
       },
 

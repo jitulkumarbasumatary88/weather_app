@@ -15,30 +15,39 @@ class WeeklyWeather extends ConsumerWidget {
     return weeklyWeather.when(
       data: (weekly) {
         final list = weekly?.list ?? [];
+
         final dailyList = list.where((item) {
           return item.dtTxt?.contains('12:00:00') ?? false;
         }).toList();
 
-        return CustomBlurGlassEffect(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+
+              //////////////////// Main Heading ////////////////////
+              child: const Text(
                 'Weekly Forecast',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 10),
-              Column(
-                children: dailyList.map((item) {
+            ),
+
+            const SizedBox(height: 8),
+
+            CustomBlurGlassEffect(
+              child: Column(
+                children: dailyList.expand((item) {
                   final dateTime = DateTime.fromMillisecondsSinceEpoch(
                     (item.dt?.toInt() ?? 0) * 1000,
                   );
 
                   final dayName = DateFormat('EEEE').format(dateTime);
+
                   final rawDesc = item.weather?[0].description ?? '';
 
                   final description = rawDesc
@@ -50,80 +59,113 @@ class WeeklyWeather extends ConsumerWidget {
                       })
                       .join(' ');
 
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                dayName,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                  return [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //////////////////// Day Name ////////////////////
+                                Text(
+                                  dayName,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                description,
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
+
+                                const SizedBox(height: 2),
+
+                                //////////////////// Description ////////////////////
+                                Text(
+                                  description,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Icon(
-                          WeatherBasisIconOrColor.getIcon(
-                            item.weather?[0].main,
+
+                          //////////////////// Icon ////////////////////
+                          Icon(
+                            WeatherBasisIconOrColor.getIcon(
+                              item.weather?[0].main,
+                            ),
+                            color: WeatherBasisIconOrColor.getColor(
+                              item.weather?[0].main,
+                            ),
+                            size: 20,
                           ),
-                          color: WeatherBasisIconOrColor.getColor(
-                            item.weather?[0].main,
-                          ),
-                          size: 18,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: Row(
-                            children: [
-                              Text(
-                                ' ${item.main?.tempMin?.round() ?? 0}°',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Container(
-                                  width: 50,
-                                  height: 4,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    gradient: const LinearGradient(
-                                      colors: [Colors.blue, Colors.orange],
+
+                          const SizedBox(width: 8),
+
+                          //////////////////// Min Temp ////////////////////
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  ' ${item.main?.tempMin?.round() ?? 0}°',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                                ),
+
+                                const SizedBox(width: 8),
+
+                                //////////////////// Grad Box ////////////////////
+                                Expanded(
+                                  child: Container(
+                                    // width: 50,
+                                    height: 4,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(2),
+                                      gradient: const LinearGradient(
+                                        colors: [Colors.blue, Colors.orange],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                '${item.main?.tempMax?.round() ?? 0}° ',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ],
+
+                                const SizedBox(width: 8),
+
+                                //////////////////// Max Temp ////////////////////
+                                Text(
+                                  '${item.main?.tempMax?.round() ?? 0}° ',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  );
+                    if (item != dailyList.last)
+                      const Divider(color: Colors.white10, height: 16),
+                  ];
                 }).toList(),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
+
       loading: () => const SizedBox.shrink(),
+
       error: (_, _) => const SizedBox.shrink(),
     );
   }

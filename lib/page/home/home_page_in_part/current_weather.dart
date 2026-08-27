@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:weather_app/custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
-import '../../../custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
 import '../../../custom_reuse/weather_basis_icon_or_color.dart';
 
 class CurrentWeather extends ConsumerWidget {
@@ -27,15 +27,13 @@ class CurrentWeather extends ConsumerWidget {
             .join(' ');
 
         return CustomBlurGlassEffect(
-          padding: const EdgeInsets.all(24),
-          borderRadius: 28,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //////////////////// MIDDLE ROW ////////////////////
+              //////////////////// Top ROW ////////////////////
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     //////////////////// City Name ////////////////////

@@ -15,71 +15,94 @@ class GraphWeather extends ConsumerWidget {
       data: (graph) {
         final list = graph?.list?.take(8).toList() ?? [];
 
-        return CustomBlurGlassEffect(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Temperature Graph',
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //////////////////// Main Heading ////////////////////
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: const Text(
+                'Temperature Trend',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 10),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: list.map((item) {
-                  final temp = item.main?.temp?.round() ?? 0;
-          
-                  final dateTime = DateTime.fromMillisecondsSinceEpoch(
-                    (item.dt?.toInt() ?? 0) * 1000,
-                  );
-          
-                  final timeStr = DateFormat('h a').format(dateTime);
-                  final barHeight = (temp * 1.8).clamp(20.0, 60.0);
-          
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        '$temp°',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                        ),
-                      ),
-          
-                      const SizedBox(height: 6),
-          
-                      Container(
-                        width: 10,
-                        height: barHeight,
-                        decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Colors.amber, Colors.orange],
+            ),
+
+            const SizedBox(height: 8),
+
+            CustomBlurGlassEffect(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: list.map((item) {
+                    final temp = item.main?.temp?.round() ?? 0;
+
+                    final dateTime = DateTime.fromMillisecondsSinceEpoch(
+                      (item.dt?.toInt() ?? 0) * 1000,
+                    );
+
+                    final timeStr = DateFormat('h a').format(dateTime);
+
+                    final barHeight = (temp * 1.8).clamp(20.0, 60.0);
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          //////////////////// Temp ////////////////////
+                          Text(
+                            '$temp°',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                           ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
+
+                          const SizedBox(height: 6),
+
+                          //////////////////// Bar ////////////////////
+                          Container(
+                            width: 10,
+                            height: barHeight,
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Colors.amber, Colors.orange],
+                              ),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          //////////////////// Time ////////////////////
+                          Text(
+                            timeStr,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
-          
-                      const SizedBox(height: 8),
-          
-                      Text(
-                        timeStr,
-                        style: const TextStyle(color: Colors.white, fontSize: 11),
-                      ),
-                    ],
-                  );
-                }).toList(),
+                    );
+                  }).toList(),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
 
