@@ -6,9 +6,12 @@ import 'package:weather_app/model/forecast_model.dart';
 import 'package:weather_app/model/aqi_model.dart';
 import 'package:weather_app/model/city_suggestion_model.dart';
 
+//////////////////// Generated file ko link karta hai (build_runner code use karne ke liye) ////////////////////
 part 'weather_riverpod.g.dart';
 
+//////////////////// Auto provider banayega + data hamesha memory me cache rakhega ////////////////////
 @Riverpod(keepAlive: true)
+//////////////////// Weather ////////////////////
 class WeatherNotifier extends _$WeatherNotifier {
   final ApiIntegrate _apiService = ApiIntegrate();
 
@@ -31,6 +34,7 @@ class WeatherNotifier extends _$WeatherNotifier {
 }
 
 @Riverpod(keepAlive: true)
+//////////////////// Forecast ////////////////////
 class ForecastNotifier extends _$ForecastNotifier {
   final ApiIntegrate _apiService = ApiIntegrate();
 
@@ -51,6 +55,7 @@ class ForecastNotifier extends _$ForecastNotifier {
 }
 
 @riverpod
+//////////////////// Aqi ////////////////////
 class AqiNotifier extends _$AqiNotifier {
   final ApiIntegrate _apiService = ApiIntegrate();
 
@@ -66,6 +71,7 @@ class AqiNotifier extends _$AqiNotifier {
 }
 
 @riverpod
+//////////////////// Search Suggestion ////////////////////
 Future<List<CitySuggestionModel>> citySuggestions(
   CitySuggestionsRef ref,
   String query,
@@ -77,6 +83,7 @@ Future<List<CitySuggestionModel>> citySuggestions(
 }
 
 @riverpod
+//////////////////// Save or Delete ////////////////////
 class SavedCitiesNotifier extends _$SavedCitiesNotifier {
   static const String _key = 'saved_cities_list';
 

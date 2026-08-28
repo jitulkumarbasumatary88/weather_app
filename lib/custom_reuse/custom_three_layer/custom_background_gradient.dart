@@ -14,7 +14,7 @@ class CustomBackgroundGradient extends StatelessWidget {
           end: Alignment.bottomCenter,
           colors: [
             Color(0xFF0F172A),
-            Color(0xFF1E3C72),
+            Color(0xFF1E293B), // 0xFF1E3C72
           ],
         ),
       ),

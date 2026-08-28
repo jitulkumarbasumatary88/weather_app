@@ -7,6 +7,7 @@ import 'package:weather_app/model/city_suggestion_model.dart';
 import 'package:weather_app/model/aqi_model.dart';
 
 class ApiIntegrate {
+  //////////////////// Weather ////////////////////
   Future<WeatherModel> fetchCurrentWeather(String cityName) async {
     final url =
         '${ApiConstants.currentWeatherUrl}?q=$cityName&units=metric&appid=${ApiConstants.apiKey}';
@@ -25,6 +26,7 @@ class ApiIntegrate {
     }
   }
 
+  //////////////////// Forecast ////////////////////
   Future<ForecastModel> fetchForecast(String cityName) async {
     final url =
         '${ApiConstants.forecastUrl}?q=$cityName&units=metric&appid=${ApiConstants.apiKey}';
@@ -41,22 +43,7 @@ class ApiIntegrate {
     }
   }
 
-  Future<List<CitySuggestionModel>> fetchCitySuggestions(String query) async {
-    if (query.trim().isEmpty) return [];
-    final url =
-        '${ApiConstants.geoDirectUrl}?q=$query&limit=5&appid=${ApiConstants.apiKey}';
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        return citySuggestionModelFromJson(response.body);
-      } else {
-        return [];
-      }
-    } catch (e) {
-      return [];
-    }
-  }
-
+  //////////////////// Aqi ////////////////////
   Future<AqiModel> fetchAqi(double lat, double lon) async {
     final url =
         '${ApiConstants.airPollutionUrl}?lat=$lat&lon=$lon&appid=${ApiConstants.apiKey}';
@@ -70,6 +57,23 @@ class ApiIntegrate {
     } catch (e) {
       if (e is String) rethrow;
       throw 'No Internet Connection. Please try again!';
+    }
+  }
+
+  //////////////////// Search Suggestion ////////////////////
+  Future<List<CitySuggestionModel>> fetchCitySuggestions(String query) async {
+    if (query.trim().isEmpty) return [];
+    final url =
+        '${ApiConstants.geoDirectUrl}?q=$query&limit=5&appid=${ApiConstants.apiKey}';
+    try {
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        return citySuggestionModelFromJson(response.body);
+      } else {
+        return [];
+      }
+    } catch (e) {
+      return [];
     }
   }
 }

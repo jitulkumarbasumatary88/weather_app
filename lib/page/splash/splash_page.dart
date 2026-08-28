@@ -53,17 +53,16 @@ class _SplashBody extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF0F172A),
-            Color(0xFF1E3C72),
-          ],
+          colors: [Color(0xFF0F172A), Color(0xFF1E3C72)],
         ),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
-          Icon(Icons.wb_sunny_rounded, size: 80, color: Colors.amber),
+          Icon(Icons.wb_sunny_rounded, size: 100, color: Colors.amber),
+
           SizedBox(height: 20),
+
           Text(
             'Your Daily Weather',
             style: TextStyle(
@@ -72,7 +71,9 @@ class _SplashBody extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 40),
+
+          SizedBox(height: 30),
+
           CircularProgressIndicator(color: Colors.white),
         ],
       ),

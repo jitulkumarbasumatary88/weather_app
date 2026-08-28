@@ -66,7 +66,7 @@ class HomePage extends ConsumerWidget {
                                   children: [
                                     const Icon(
                                       Icons.cloud_off_rounded,
-                                      size: 60,
+                                      size: 50,
                                       color: Colors.redAccent,
                                     ),
 
@@ -77,7 +77,7 @@ class HomePage extends ConsumerWidget {
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(
                                         color: Colors.white,
-                                        fontSize: 16,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -99,18 +99,18 @@ class HomePage extends ConsumerWidget {
                                   children: const [
                                     Icon(
                                       Icons.search_rounded,
-                                      size: 60,
+                                      size: 50,
                                       color: Colors.amber,
                                     ),
 
                                     SizedBox(height: 15),
 
                                     Text(
-                                      'Bhadwe agar trko weather dekhna h toh search kar leh khud seh😂😂',
+                                      'Search for a city to view the weather',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: 20,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -159,20 +159,10 @@ class HomePage extends ConsumerWidget {
                                 : Column(
                                     children: const [
                                       CurrentWeather(),
-                                      // SizedBox(height: 10),
-                                      // FractionallySizedBox(
-                                      //   widthFactor: 0.80,
-                                      //   child: Divider(color: Colors.white),
-                                      // ),
                                       SizedBox(height: 10),
                                       HourlyWeather(),
                                       SizedBox(height: 10),
                                       GraphWeather(),
-                                      // SizedBox(height: 10),
-                                      // FractionallySizedBox(
-                                      //   widthFactor: 0.80,
-                                      //   child: Divider(color: Colors.white),
-                                      // ),
                                       SizedBox(height: 10),
                                       WeeklyWeather(),
                                       SizedBox(height: 10),

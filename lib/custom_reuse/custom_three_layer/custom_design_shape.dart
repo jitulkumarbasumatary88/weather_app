@@ -19,7 +19,7 @@ class CustomDesignShape extends ConsumerWidget {
           right: 45,
           child: Icon(
             WeatherBasisIconOrColor.getIcon(condition),
-            color: baseColor.withValues(alpha: 0.1),
+            color: baseColor.withValues(alpha: 0.3),
             size: 300,
           ),
         );

@@ -75,7 +75,7 @@ class CurrentWeather extends ConsumerWidget {
                 ],
               ),
 
-              const SizedBox(height: 28),
+              const SizedBox(height: 30),
 
               //////////////////// MIDDLE ROW ////////////////////
               Row(
@@ -146,7 +146,7 @@ class CurrentWeather extends ConsumerWidget {
                 ],
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
 
               //////////////////// Divider ////////////////////
               const Divider(color: Colors.white12, height: 1),

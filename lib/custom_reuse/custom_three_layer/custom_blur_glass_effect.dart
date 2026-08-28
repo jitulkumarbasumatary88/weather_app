@@ -42,7 +42,7 @@ class CustomBlurGlassEffect extends StatelessWidget {
                 border ??
                 Border.all(
                   color: Colors.white.withValues(alpha: 0.25),
-                  width: 1.5,
+                  width: 0, // 1.5
                 ),
           ),
           child: child,
