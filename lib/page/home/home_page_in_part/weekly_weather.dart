@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import '../../../custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
 import '../../../custom_reuse/weather_basis_icon_or_color.dart';
+import '../../../helper/temp_unit_converter.dart';
 
 class WeeklyWeather extends ConsumerWidget {
   const WeeklyWeather({super.key});
@@ -19,6 +20,8 @@ class WeeklyWeather extends ConsumerWidget {
         final dailyList = list.where((item) {
           return item.dtTxt?.contains('12:00:00') ?? false;
         }).toList();
+
+        final isCelsius = ref.watch(isCelsiusProvider);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,6 +61,15 @@ class WeeklyWeather extends ConsumerWidget {
                             : '';
                       })
                       .join(' ');
+
+                  final minTemp = TempUnitConverter.convert(
+                    item.main?.tempMin,
+                    isCelsius,
+                  );
+                  final maxTemp = TempUnitConverter.convert(
+                    item.main?.tempMax,
+                    isCelsius,
+                  );
 
                   return [
                     Padding(
@@ -114,7 +126,7 @@ class WeeklyWeather extends ConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(
-                                  ' ${item.main?.tempMin?.round() ?? 0}°',
+                                  ' $minTemp°',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
@@ -126,7 +138,6 @@ class WeeklyWeather extends ConsumerWidget {
                                 //////////////////// Grad Box ////////////////////
                                 Expanded(
                                   child: Container(
-                                    // width: 50,
                                     height: 4,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(2),
@@ -141,7 +152,7 @@ class WeeklyWeather extends ConsumerWidget {
 
                                 //////////////////// Max Temp ////////////////////
                                 Text(
-                                  '${item.main?.tempMax?.round() ?? 0}° ',
+                                  '$maxTemp° ',
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,

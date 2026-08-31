@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import '../../../custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
+import '../../../helper/temp_unit_converter.dart';
 
 class GridWeather extends ConsumerWidget {
   const GridWeather({super.key});
@@ -14,6 +15,13 @@ class GridWeather extends ConsumerWidget {
       data: (grid) {
         final visibilityKm = ((grid?.visibility ?? 0) / 1000).toStringAsFixed(
           1,
+        );
+
+        final isCelsius = ref.watch(isCelsiusProvider);
+
+        final feelsLike = TempUnitConverter.convert(
+          grid?.main?.feelsLike,
+          isCelsius,
         );
 
         return Column(
@@ -68,7 +76,7 @@ class GridWeather extends ConsumerWidget {
                 Expanded(
                   child: _buildGridView(
                     title: 'Feels Like',
-                    value: '${grid?.main?.feelsLike?.round() ?? 0}°C',
+                    value: '$feelsLike${TempUnitConverter.unit(isCelsius)}',
                     icon: Icons.thermostat_rounded,
                     iconColor: Colors.pinkAccent,
                   ),

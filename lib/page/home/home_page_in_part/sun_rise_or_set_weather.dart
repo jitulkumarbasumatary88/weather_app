@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import '../../../custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
+import '../../../helper/city_timezone.dart';
 
 class SunRiseOrSetWeather extends ConsumerWidget {
   const SunRiseOrSetWeather({super.key});
@@ -13,16 +13,14 @@ class SunRiseOrSetWeather extends ConsumerWidget {
 
     return sunRiseOrSetWeather.when(
       data: (sunRiseOrSet) {
-        final sunriseTime = DateFormat('h:mm a').format(
-          DateTime.fromMillisecondsSinceEpoch(
-            (sunRiseOrSet?.sys?.sunrise?.toInt() ?? 0) * 1000,
-          ),
+        final sunriseTime = formatCityTime(
+          sunRiseOrSet?.sys?.sunrise,
+          sunRiseOrSet?.timezone,
         );
 
-        final sunsetTime = DateFormat('h:mm a').format(
-          DateTime.fromMillisecondsSinceEpoch(
-            (sunRiseOrSet?.sys?.sunset?.toInt() ?? 0) * 1000,
-          ),
+        final sunsetTime = formatCityTime(
+          sunRiseOrSet?.sys?.sunset,
+          sunRiseOrSet?.timezone,
         );
 
         return Column(
