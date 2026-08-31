@@ -51,7 +51,7 @@ class CurrentWeather extends ConsumerWidget {
           children: [
             //////////////////// Main Heading ////////////////////
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: const Text(
                 'Today\'s Weather',
                 style: TextStyle(

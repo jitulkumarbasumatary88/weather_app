@@ -121,7 +121,7 @@ class HomePage extends ConsumerWidget {
                           );
                         } else {
                           return SingleChildScrollView(
-                            padding: const EdgeInsets.only(bottom: 60, top: 8),
+                            padding: const EdgeInsets.only(bottom: 55),
                             physics: const BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics(),
                             ),
