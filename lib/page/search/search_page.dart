@@ -145,6 +145,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                       }
 
                       return ListView.builder(
+                        padding: EdgeInsets.zero,
                         physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics(),
                         ),

@@ -28,7 +28,7 @@ class GridWeather extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
 
               //////////////////// Main Heading ////////////////////
               child: const Text(
@@ -40,8 +40,6 @@ class GridWeather extends ConsumerWidget {
                 ),
               ),
             ),
-
-            const SizedBox(height: 8),
 
             //////////////////// Humidity / Wind ////////////////////
             Row(

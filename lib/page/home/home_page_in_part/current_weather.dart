@@ -4,6 +4,7 @@ import 'package:weather_app/custom_reuse/custom_three_layer/custom_blur_glass_ef
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import 'package:weather_app/helper/temp_unit_converter.dart';
 import '../../../custom_reuse/weather_basis_icon_or_color.dart';
+import '../../../helper/city_timezone.dart';
 
 class CurrentWeather extends ConsumerWidget {
   const CurrentWeather({super.key});
@@ -51,7 +52,7 @@ class CurrentWeather extends ConsumerWidget {
           children: [
             //////////////////// Main Heading ////////////////////
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: const Text(
                 'Today\'s Weather',
                 style: TextStyle(
@@ -61,8 +62,6 @@ class CurrentWeather extends ConsumerWidget {
                 ),
               ),
             ),
-
-            const SizedBox(height: 8),
 
             CustomBlurGlassEffect(
               child: Column(
@@ -75,16 +74,33 @@ class CurrentWeather extends ConsumerWidget {
                     children: [
                       Expanded(
                         //////////////////// City Name ////////////////////
-                        child: Text(
-                          '${current.name ?? ''}, ${current.sys?.country ?? ''}',
-                          style: const TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${current.name ?? ''}, ${current.sys?.country ?? ''}',
+                              style: const TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: -0.5,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+
+                            const SizedBox(height: 4),
+
+                            //////////////////// Date ////////////////////
+                            Text(
+                              formatCityDate(current.dt, current.timezone),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white.withValues(alpha: 0.6),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
 

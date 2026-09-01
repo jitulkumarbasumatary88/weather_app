@@ -1,33 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:weather_app/riverpod/weather_riverpod.dart';
 import '../weather_basis_icon_or_color.dart';
 
-class CustomDesignShape extends ConsumerWidget {
-  const CustomDesignShape({super.key});
+class CustomDesignShape extends StatelessWidget {
+  final String? condition;
+  final String? iconCode;
+
+  const CustomDesignShape({super.key, this.condition, this.iconCode});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final customDesignShape = ref.watch(weatherNotifierProvider);
-    return customDesignShape.when(
-      data: (designShape) {
-        final condition = designShape?.weather?[0].main;
-        final baseColor = WeatherBasisIconOrColor.getColor(condition);
+  Widget build(BuildContext context) {
+    // Glowing Orbs Dynamic Colors
+    final shapeColors = WeatherBasisIconOrColor.getShapeColors(
+      condition,
+      iconCode: iconCode,
+    );
 
-        return Positioned(
-          top: 50,
-          right: 45,
-          child: Icon(
-            WeatherBasisIconOrColor.getIcon(condition),
-            color: baseColor.withValues(alpha: 0.3),
-            size: 300,
+    return SizedBox.expand(
+      child: Stack(
+        children: [
+          // Top Right Glowing Orb (Sun / Moon Glow effect)
+          Positioned(
+            top: -50,
+            right: -50,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: shapeColors[0].withValues(alpha: 0.35),
+              ),
+            ),
           ),
-        );
-      },
 
-      loading: () => const SizedBox.shrink(),
-
-      error: (_, _) => const SizedBox.shrink(),
+          // Bottom Left Ambient Glow Orb
+          Positioned(
+            bottom: 100,
+            left: -60,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 600),
+              width: 220,
+              height: 220,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: shapeColors.length > 1
+                    ? shapeColors[1].withValues(alpha: 0.25)
+                    : shapeColors[0].withValues(alpha: 0.2),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

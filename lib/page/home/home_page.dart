@@ -20,6 +20,11 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final weatherState = ref.watch(weatherNotifierProvider);
 
+    // Current weather data se condition aur icon code nikalna
+    final currentWeather = weatherState.value;
+    final condition = currentWeather?.weather?[0].main;
+    final iconCode = currentWeather?.weather?[0].icon;
+
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
@@ -36,9 +41,12 @@ class HomePage extends ConsumerWidget {
           builder: (context, constraints) {
             return Stack(
               children: [
-                const CustomBackgroundGradient(),
+                CustomBackgroundGradient(
+                  condition: condition,
+                  iconCode: iconCode,
+                ),
 
-                const CustomDesignShape(),
+                CustomDesignShape(condition: condition, iconCode: iconCode),
 
                 SafeArea(
                   bottom: false,
@@ -120,58 +128,82 @@ class HomePage extends ConsumerWidget {
                             ),
                           );
                         } else {
-                          return SingleChildScrollView(
-                            padding: const EdgeInsets.only(bottom: 55),
-                            physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics(),
+                          return RefreshIndicator(
+                            // Spinner color
+                            color: Colors.white,
+                            // Dark theme matching background
+                            backgroundColor: const Color(0xFF1E293B),
+                            onRefresh: () async {
+                              final cityName = weatherState.value?.name;
+                              if (cityName != null) {
+                                // Dono APIs (Current + Forecast) ek sath parallel me refresh hongi
+                                await Future.wait([
+                                  ref
+                                      .read(weatherNotifierProvider.notifier)
+                                      .searchWeather(cityName),
+                                  ref
+                                      .read(forecastNotifierProvider.notifier)
+                                      .searchForecast(cityName),
+                                ]);
+                              }
+                            },
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(
+                                parent: AlwaysScrollableScrollPhysics(),
+                              ),
+                              child: constraints.maxWidth > 600
+                                  //////////////////// Big Screen View ////////////////////
+                                  ? Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            children: const [
+                                              SizedBox(height: 10),
+                                              CurrentWeather(),
+                                              SizedBox(height: 10),
+                                              HourlyWeather(),
+                                              SizedBox(height: 10),
+                                              GraphWeather(),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Expanded(
+                                          child: Column(
+                                            children: const [
+                                              SizedBox(height: 10),
+                                              WeeklyWeather(),
+                                              SizedBox(height: 10),
+                                              GridWeather(),
+                                              SizedBox(height: 10),
+                                              SunRiseOrSetWeather(),
+                                              SizedBox(height: 60),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  //////////////////// Small Screen View ////////////////////
+                                  : Column(
+                                      children: const [
+                                        SizedBox(height: 10),
+                                        CurrentWeather(),
+                                        SizedBox(height: 10),
+                                        HourlyWeather(),
+                                        SizedBox(height: 10),
+                                        GraphWeather(),
+                                        SizedBox(height: 10),
+                                        WeeklyWeather(),
+                                        SizedBox(height: 10),
+                                        GridWeather(),
+                                        SizedBox(height: 10),
+                                        SunRiseOrSetWeather(),
+                                        SizedBox(height: 58),
+                                      ],
+                                    ),
                             ),
-                            child: constraints.maxWidth > 600
-                                //////////////////// Big Screen View ////////////////////
-                                ? Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          children: const [
-                                            CurrentWeather(),
-                                            SizedBox(height: 10),
-                                            HourlyWeather(),
-                                            SizedBox(height: 10),
-                                            GraphWeather(),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        child: Column(
-                                          children: const [
-                                            WeeklyWeather(),
-                                            SizedBox(height: 10),
-                                            GridWeather(),
-                                            SizedBox(height: 10),
-                                            SunRiseOrSetWeather(),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                //////////////////// Small Screen View ////////////////////
-                                : Column(
-                                    children: const [
-                                      CurrentWeather(),
-                                      SizedBox(height: 10),
-                                      HourlyWeather(),
-                                      SizedBox(height: 10),
-                                      GraphWeather(),
-                                      SizedBox(height: 10),
-                                      WeeklyWeather(),
-                                      SizedBox(height: 10),
-                                      GridWeather(),
-                                      SizedBox(height: 10),
-                                      SunRiseOrSetWeather(),
-                                    ],
-                                  ),
                           );
                         }
                       },
@@ -197,7 +229,6 @@ class HomePage extends ConsumerWidget {
                       child: const CustomBlurGlassEffect(
                         width: 70,
                         padding: EdgeInsets.zero,
-                        borderRadius: 20,
                         child: Icon(
                           Icons.arrow_drop_up_rounded,
                           color: Colors.white,

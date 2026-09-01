@@ -23,7 +23,7 @@ class GraphWeather extends ConsumerWidget {
           children: [
             //////////////////// Main Heading ////////////////////
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: const Text(
                 'Temperature Trend',
                 style: TextStyle(
@@ -33,8 +33,6 @@ class GraphWeather extends ConsumerWidget {
                 ),
               ),
             ),
-
-            const SizedBox(height: 8),
 
             CustomBlurGlassEffect(
               child: SingleChildScrollView(
