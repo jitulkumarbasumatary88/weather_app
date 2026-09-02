@@ -5,6 +5,7 @@ import 'package:weather_app/custom_reuse/custom_three_layer/custom_blur_glass_ef
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import 'package:weather_app/helper/temp_unit_converter.dart';
 import '../../../custom_reuse/weather_basis_icon_or_color.dart';
+import '../../../helper/city_timezone.dart';
 
 class HourlyWeather extends ConsumerWidget {
   const HourlyWeather({super.key});
@@ -48,7 +49,11 @@ class HourlyWeather extends ConsumerWidget {
                       (item.dt?.toInt() ?? 0) * 1000,
                     );
 
-                    final timeString = DateFormat('h a').format(dateTime);
+                    // final timeString = DateFormat('h a').format(dateTime);
+                    final timeString = formatCityHour(
+                      item.dt,
+                      hourly?.city?.timezone,
+                    );
 
                     final hourlyTemp = TempUnitConverter.convert(
                       item.main?.temp,
@@ -77,9 +82,11 @@ class HourlyWeather extends ConsumerWidget {
                           Icon(
                             WeatherBasisIconOrColor.getIcon(
                               item.weather?[0].main,
+                              iconCode: item.weather?[0].icon,
                             ),
                             color: WeatherBasisIconOrColor.getColor(
                               item.weather?[0].main,
+                              iconCode: item.weather?[0].icon,
                             ),
                             size: 22,
                           ),

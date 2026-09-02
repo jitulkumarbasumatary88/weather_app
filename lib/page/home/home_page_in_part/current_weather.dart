@@ -97,7 +97,7 @@ class CurrentWeather extends ConsumerWidget {
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.white.withValues(alpha: 0.6),
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],
@@ -105,37 +105,54 @@ class CurrentWeather extends ConsumerWidget {
                       ),
 
                       //////////////////// Switch Button ////////////////////
-                      GestureDetector(
-                        onTap: () {
-                          ref.read(isCelsiusProvider.notifier).state =
-                              !isCelsius;
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.2),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              ref.read(isCelsiusProvider.notifier).state =
+                                  !isCelsius;
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                ),
+                              ),
+                              child: Text(
+                                isCelsius ? 'Switch to °F' : 'Switch to °C',
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                           ),
-                          child: Text(
-                            isCelsius ? 'Switch to °F' : 'Switch to °C',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+
+                          const SizedBox(height: 10),
+
+                          //////////////////// Time ////////////////////
+                          Text(
+                            formatCityTime(current.dt, current.timezone),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white.withValues(alpha: 0.7),
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
 
                   //////////////////// MIDDLE ROW ////////////////////
                   Row(
@@ -197,9 +214,11 @@ class CurrentWeather extends ConsumerWidget {
                         child: Icon(
                           WeatherBasisIconOrColor.getIcon(
                             current.weather?[0].main,
+                            iconCode: current.weather?[0].icon,
                           ),
                           color: WeatherBasisIconOrColor.getColor(
                             current.weather?[0].main,
+                            iconCode: current.weather?[0].icon,
                           ),
                           size: 72,
                         ),
@@ -207,7 +226,7 @@ class CurrentWeather extends ConsumerWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 40),
 
                   //////////////////// Divider ////////////////////
                   const Divider(color: Colors.white12, height: 1),

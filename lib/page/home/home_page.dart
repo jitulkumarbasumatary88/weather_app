@@ -160,7 +160,6 @@ class HomePage extends ConsumerWidget {
                                         Expanded(
                                           child: Column(
                                             children: const [
-                                              SizedBox(height: 10),
                                               CurrentWeather(),
                                               SizedBox(height: 10),
                                               HourlyWeather(),
@@ -173,7 +172,6 @@ class HomePage extends ConsumerWidget {
                                         Expanded(
                                           child: Column(
                                             children: const [
-                                              SizedBox(height: 10),
                                               WeeklyWeather(),
                                               SizedBox(height: 10),
                                               GridWeather(),
@@ -188,7 +186,6 @@ class HomePage extends ConsumerWidget {
                                   //////////////////// Small Screen View ////////////////////
                                   : Column(
                                       children: const [
-                                        SizedBox(height: 10),
                                         CurrentWeather(),
                                         SizedBox(height: 10),
                                         HourlyWeather(),
@@ -227,7 +224,7 @@ class HomePage extends ConsumerWidget {
                         );
                       },
                       child: const CustomBlurGlassEffect(
-                        width: 70,
+                        width: 100,
                         padding: EdgeInsets.zero,
                         child: Icon(
                           Icons.arrow_drop_up_rounded,

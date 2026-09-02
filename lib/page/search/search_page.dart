@@ -177,9 +177,11 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
                             //////////////////// Tap ////////////////////
                             onTap: () {
+                              // _triggerSearch('${city.name}, ${city.country}');
                               ref
                                   .read(savedCitiesNotifierProvider.notifier)
-                                  .addCity(city.name ?? '');
+                                  .addCity('${city.name}, ${city.country}');
+                              // ref.read(savedCitiesNotifierProvider.notifier).addCity(city.name ?? '');
                               _searchController.clear();
                               setState(() {
                                 _searchQuery = '';

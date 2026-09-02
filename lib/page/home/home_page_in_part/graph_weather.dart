@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import 'package:weather_app/helper/temp_unit_converter.dart';
 import '../../../custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
+import '../../../helper/city_timezone.dart';
 
 class GraphWeather extends ConsumerWidget {
   const GraphWeather({super.key});
@@ -50,7 +51,12 @@ class GraphWeather extends ConsumerWidget {
                       (item.dt?.toInt() ?? 0) * 1000,
                     );
 
-                    final timeStr = DateFormat('h a').format(dateTime);
+                    // final timeStr = DateFormat('h a').format(dateTime);
+
+                    final timeStr = formatCityHour(
+                      item.dt,
+                      graph?.city?.timezone,
+                    );
 
                     final barHeight = (temp * 1.7).clamp(20.0, 60.0);
 

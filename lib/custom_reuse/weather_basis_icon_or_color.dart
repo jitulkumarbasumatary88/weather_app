@@ -93,7 +93,9 @@ class WeatherBasisIconOrColor {
     if (condition == null) {
       return const [Color(0xFF0F172A), Color(0xFF1E293B)];
     }
+
     final isNight = iconCode?.contains('n') ?? false;
+
     // Night Midnight Dky Gradients
     if (isNight) {
       return const [Color(0xFF0B0E14), Color(0xFF1B1B2F)];
@@ -112,10 +114,7 @@ class WeatherBasisIconOrColor {
         return const [Color(0xFF1A365D), Color(0xFF2B4C7E)];
 
       case 'thunderstorm':
-        return const [
-          Color(0xFF160F28),
-          Color(0xFF2B193D),
-        ]; // Dark Electric Purple
+        return const [Color(0xFF160F28), Color(0xFF2B193D)];
 
       case 'snow':
         return const [Color(0xFF1C2A38), Color(0xFF3A506B)];
@@ -143,12 +142,14 @@ class WeatherBasisIconOrColor {
     if (condition == null) {
       return const [Colors.blueAccent, Colors.indigoAccent];
     }
+
     final isNight = iconCode?.contains('n') ?? false;
+
     // Night Moon Like Indigo Glow
     if (isNight) {
       return const [Colors.indigoAccent, Colors.deepPurpleAccent];
     }
-    // Day Glowing Accent Orbs
+
     switch (condition.toLowerCase()) {
       case 'clear':
         return const [Colors.amber, Colors.lightBlueAccent]; // Sun glow
