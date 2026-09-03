@@ -53,7 +53,7 @@ class GridWeather extends ConsumerWidget {
                   ),
                 ),
 
-                const SizedBox(width: 12),
+                const SizedBox(width: 10),
 
                 Expanded(
                   child: _buildGridView(
@@ -66,7 +66,7 @@ class GridWeather extends ConsumerWidget {
               ],
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
             //////////////////// Feel / Air ////////////////////
             Row(
@@ -80,7 +80,7 @@ class GridWeather extends ConsumerWidget {
                   ),
                 ),
 
-                const SizedBox(width: 12),
+                const SizedBox(width: 10),
 
                 Expanded(
                   child: _buildGridView(
@@ -93,7 +93,7 @@ class GridWeather extends ConsumerWidget {
               ],
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
             //////////////////// Visibility / Cloud ////////////////////
             Row(
@@ -107,7 +107,7 @@ class GridWeather extends ConsumerWidget {
                   ),
                 ),
 
-                const SizedBox(width: 12),
+                const SizedBox(width: 10),
 
                 Expanded(
                   child: _buildGridView(
@@ -150,8 +150,8 @@ class GridWeather extends ConsumerWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: Colors.white.withValues(alpha: 0.6),
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                   ),
@@ -164,17 +164,20 @@ class GridWeather extends ConsumerWidget {
 
           SizedBox(height: 20),
 
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              value,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+          Padding(
+            padding: const EdgeInsets.only(left: 6),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                value,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 1,
               ),
-              maxLines: 1,
             ),
           ),
         ],

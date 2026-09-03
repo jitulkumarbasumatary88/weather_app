@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app/custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import 'package:weather_app/helper/temp_unit_converter.dart';
@@ -45,11 +44,6 @@ class HourlyWeather extends ConsumerWidget {
                 ),
                 child: Row(
                   children: list.map((item) {
-                    final dateTime = DateTime.fromMillisecondsSinceEpoch(
-                      (item.dt?.toInt() ?? 0) * 1000,
-                    );
-
-                    // final timeString = DateFormat('h a').format(dateTime);
                     final timeString = formatCityHour(
                       item.dt,
                       hourly?.city?.timezone,
@@ -69,8 +63,8 @@ class HourlyWeather extends ConsumerWidget {
                           //////////////////// Time ////////////////////
                           Text(
                             timeString,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.6),
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                             ),

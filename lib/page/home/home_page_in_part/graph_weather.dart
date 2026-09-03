@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app/riverpod/weather_riverpod.dart';
 import 'package:weather_app/helper/temp_unit_converter.dart';
 import '../../../custom_reuse/custom_three_layer/custom_blur_glass_effect.dart';
@@ -46,12 +45,6 @@ class GraphWeather extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: list.map((item) {
                     final temp = item.main?.temp?.round() ?? 0;
-
-                    final dateTime = DateTime.fromMillisecondsSinceEpoch(
-                      (item.dt?.toInt() ?? 0) * 1000,
-                    );
-
-                    // final timeStr = DateFormat('h a').format(dateTime);
 
                     final timeStr = formatCityHour(
                       item.dt,
@@ -102,9 +95,10 @@ class GraphWeather extends ConsumerWidget {
                           //////////////////// Time ////////////////////
                           Text(
                             timeStr,
-                            style: const TextStyle(
-                              color: Colors.white,
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.6),
                               fontSize: 12,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],

@@ -69,7 +69,7 @@ class CurrentWeather extends ConsumerWidget {
                 children: [
                   //////////////////// Top ROW ////////////////////
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
@@ -122,7 +122,7 @@ class CurrentWeather extends ConsumerWidget {
                                 color: Colors.white.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.2),
+                                  color: Colors.white.withValues(alpha: 0.1),
                                 ),
                               ),
                               child: Text(
@@ -143,7 +143,7 @@ class CurrentWeather extends ConsumerWidget {
                             formatCityTime(current.dt, current.timezone),
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.white.withValues(alpha: 0.7),
+                              color: Colors.white.withValues(alpha: 0.6),
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -290,8 +290,9 @@ class CurrentWeather extends ConsumerWidget {
             Text(
               label,
               style: TextStyle(
+                color: Colors.white.withValues(alpha: 0.6),
                 fontSize: 12,
-                color: Colors.white.withValues(alpha: 0.5),
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

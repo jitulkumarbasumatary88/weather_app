@@ -90,14 +90,15 @@ class WeeklyWeather extends ConsumerWidget {
                                   ),
                                 ),
 
-                                const SizedBox(height: 2),
+                                const SizedBox(height: 3),
 
                                 //////////////////// Description ////////////////////
                                 Text(
                                   description,
-                                  style: const TextStyle(
+                                  style: TextStyle(
+                                    color: Colors.white.withValues(alpha: 0.6),
                                     fontSize: 12,
-                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ],

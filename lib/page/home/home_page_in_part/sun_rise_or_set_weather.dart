@@ -56,16 +56,16 @@ class SunRiseOrSetWeather extends ConsumerWidget {
                       const SizedBox(height: 6),
 
                       //////////////////// Sun Rise ////////////////////
-                      const Text(
+                      Text(
                         'Sunrise',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.white.withValues(alpha: 0.6),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
 
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
 
                       //////////////////// Sun Rise Time ////////////////////
                       Text(
@@ -80,7 +80,7 @@ class SunRiseOrSetWeather extends ConsumerWidget {
                   ),
 
                   //////////////////// Vertical Line ////////////////////
-                  Container(width: 1, height: 40, color: Colors.white10),
+                  Container(width: 1, height: 50, color: Colors.white10),
 
                   Column(
                     mainAxisSize: MainAxisSize.min,
@@ -95,16 +95,16 @@ class SunRiseOrSetWeather extends ConsumerWidget {
                       const SizedBox(height: 6),
 
                       //////////////////// Sun Set ////////////////////
-                      const Text(
+                      Text(
                         'Sunset',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.white.withValues(alpha: 0.6),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
 
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
 
                       //////////////////// Sun Set Time ////////////////////
                       Text(
