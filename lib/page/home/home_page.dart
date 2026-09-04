@@ -134,16 +134,25 @@ class HomePage extends ConsumerWidget {
                             // Dark theme matching background
                             backgroundColor: const Color(0xFF1E293B),
                             onRefresh: () async {
-                              final cityName = weatherState.value?.name;
-                              if (cityName != null) {
-                                // Dono APIs (Current + Forecast) ek sath parallel me refresh hongi
+                              final current = weatherState.value;
+                              final country = current?.sys?.country;
+
+                              // Agar country available hai toh "City, Country" bhejega, varna sirf "City"
+                              final query = current != null
+                                  ? (country != null && country.isNotEmpty
+                                        ? '${current.name}, $country'
+                                        : current.name)
+                                  : null;
+
+                              if (query != null) {
+                                // Dono APIs (Current + Forecast) exact usi city & country ke sath refresh hongi
                                 await Future.wait([
                                   ref
                                       .read(weatherNotifierProvider.notifier)
-                                      .searchWeather(cityName),
+                                      .searchWeather(query),
                                   ref
                                       .read(forecastNotifierProvider.notifier)
-                                      .searchForecast(cityName),
+                                      .searchForecast(query),
                                 ]);
                               }
                             },
